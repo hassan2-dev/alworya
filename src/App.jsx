@@ -143,12 +143,12 @@ function App() {
         <nav className="relative z-10 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <motion.span
-              className="grid h-10 w-10 place-items-center rounded-full border border-[#f9f2ea]/45 bg-[#f9f2ea]/15 font-bold"
+              className="grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-[#f9f2ea]/45 bg-[#f9f2ea]/15"
               initial={{ opacity: 0, scale: 0.7, rotate: -20 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1.1, ease }}
             >
-              A
+              <img src="/logo.png" alt="Alworya logo" className="h-8 w-8 object-contain" />
             </motion.span>
             <span className={`text-lg uppercase ${isArabic ? 'tracking-normal' : 'tracking-[0.12em]'}`}>
               Alworya
