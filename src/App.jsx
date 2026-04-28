@@ -420,6 +420,9 @@ function App() {
           <a className="text-[#4d286f] no-underline" href="/privacy-policy">
             Privacy Policy
           </a>
+          <a className="text-[#4d286f] no-underline" href="/delete-account">
+            Delete Account
+          </a>
           <a className="text-[#4d286f] no-underline" href="mailto:support@alworya.com">support@alworya.com</a>
           <a className="text-[#4d286f] no-underline" href="https://instagram.com">Instagram</a>
           <a className="text-[#4d286f] no-underline" href="https://facebook.com">Facebook</a>
