@@ -45,8 +45,11 @@ function App() {
       ],
       loginLabel: 'Login',
       startNowLabel: 'Start Now',
-      heroTitle: 'Discover & Book Luxury Venues in Iraq',
-      heroSubtitle: 'Smart platform for wedding halls & chalets booking',
+      heroTitle: 'Exceptional management for halls and chalets',
+      heroSubtitle:
+        'An integrated SaaS platform that blends luxury and efficiency to turn your business into an unforgettable experience.',
+      heroCtaPrimary: 'Start now for free',
+      heroCtaSecondary: 'Request a demo for venue owners',
       download: 'Download App',
       explore: 'Explore Venues',
       aboutTitle: 'About Alworya',
@@ -112,8 +115,11 @@ function App() {
       ],
       loginLabel: 'تسجيل الدخول',
       startNowLabel: 'ابدأ الآن',
-      heroTitle: 'اكتشف واحجز أفخم القاعات والمنتجعات في العراق',
-      heroSubtitle: 'منصة ذكية لحجز قاعات الأعراس والشاليهات بسهولة وثقة',
+      heroTitle: 'إدارة القاعات والشاليهات بمستوى استثنائي',
+      heroSubtitle:
+        'نظام SaaS متكامل يجمع بين الفخامة والفعالية لتحويل أعمالك إلى تجربة لا تُنسى.',
+      heroCtaPrimary: 'ابدأ الآن مجاناً',
+      heroCtaSecondary: 'اطلب عرضاً لأصحاب القاعات',
       download: 'حمّل التطبيق',
       explore: 'استكشف الأماكن',
       aboutTitle: 'عن الوريا',
@@ -177,28 +183,20 @@ function App() {
         <nav className="flex w-full max-w-none flex-wrap items-center justify-between gap-3 px-5 py-3 sm:px-8 xl:px-14 2xl:px-20 lg:gap-6">
           <button
             type="button"
-            className="-ms-2 flex shrink-0 items-center gap-3 rounded-lg p-2 text-start transition-opacity hover:opacity-90 lg:ms-0"
+            className="-ms-2 flex shrink-0 items-center gap-2 rounded-lg p-2 text-start transition-opacity hover:opacity-90 lg:ms-0"
             onClick={() => scrollToSection('hero')}
             aria-label="Alworya home"
           >
             <img
+              src="/mpbile%20icon.png"
+              alt="Alworya"
+              className="h-9 w-9 object-contain object-start min-[880px]:hidden"
+            />
+            <img
               src="/Alworya horizontal logo.svg"
               alt="Alworya"
-              className="hidden h-8 w-auto max-w-44 object-contain object-start sm:block md:h-9 md:max-w-56"
+              className="hidden h-8 w-auto max-w-[min(14rem,52vw)] object-contain object-start sm:h-9 md:max-w-none min-[880px]:block"
             />
-            <span className="flex items-center gap-2 sm:hidden">
-              <img
-                src="/Alworya icon.svg"
-                alt=""
-                className="h-9 w-9 object-contain"
-                aria-hidden
-              />
-              <img
-                src="/Alworya type.svg"
-                alt="Alworya"
-                className="h-6 w-auto max-w-36 object-contain object-start"
-              />
-            </span>
           </button>
 
           {/* Desktop navigation */}
@@ -208,10 +206,10 @@ function App() {
                 key={id}
                 type="button"
                 onClick={() => scrollToSection(id)}
-                className={`rounded-md px-2.5 py-2 text-[0.8125rem] font-medium transition-colors xl:text-[0.875rem] ${
+                className={`rounded-md border-b-2 px-2.5 py-2 text-[0.8125rem] font-medium transition-colors xl:text-[0.875rem] ${
                   activeNavId === id
-                    ? 'border-b-[3px] border-[#80202b] text-[#80202b]'
-                    : 'border-b-[3px] border-transparent text-[#4a4543] hover:bg-[#80202b]/06 hover:text-[#80202b]'
+                    ? 'border-[#80202b] text-[#80202b]'
+                    : 'border-transparent text-[#4a4543] hover:bg-[#80202b]/06 hover:text-[#80202b]'
                 }`}
               >
                 {label}

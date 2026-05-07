@@ -61,55 +61,17 @@ p {
 }
 
 .hero-gradient {
-  background:
-    radial-gradient(circle at 18% 12%, rgba(96, 49, 127, 0.95), transparent 36%),
-    radial-gradient(circle at 86% 84%, rgba(42, 97, 102, 0.9), transparent 31%),
-    linear-gradient(130deg, #4d286f 8%, #31767a 92%);
-  background-size: 140% 140%;
-  animation: luxuryGradientFlow 18s var(--ease-lux) infinite alternate;
+  /* Smooth horizontal gradient: teal → purple (matches landing reference) */
+  background: linear-gradient(90deg, #2a6368 0%, #31767a 38%, #422060 78%, #4d286f 100%);
 }
 
 .noise-layer {
   position: absolute;
   inset: 0;
-  opacity: 0.18;
+  opacity: 0.08;
   pointer-events: none;
   background-image: radial-gradient(rgba(255, 255, 255, 0.2) 0.6px, transparent 0.8px);
   background-size: 3px 3px;
-}
-
-.hero-particle {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(28px);
-  pointer-events: none;
-  animation: particleFloat 12s var(--ease-lux) infinite;
-}
-
-.hero-particle-1 {
-  width: 180px;
-  height: 180px;
-  background: rgba(145, 43, 59, 0.32);
-  top: 8%;
-  left: 7%;
-}
-
-.hero-particle-2 {
-  width: 150px;
-  height: 150px;
-  background: rgba(77, 40, 111, 0.36);
-  top: 52%;
-  right: 12%;
-  animation-delay: 1.8s;
-}
-
-.hero-particle-3 {
-  width: 120px;
-  height: 120px;
-  background: rgba(49, 118, 122, 0.34);
-  bottom: 12%;
-  left: 40%;
-  animation-delay: 0.9s;
 }
 
 .timeline-line::before {
@@ -137,25 +99,6 @@ p {
 
 .float-loop {
   animation: floatPhone 6.5s var(--ease-lux) infinite alternate;
-}
-
-@keyframes luxuryGradientFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes particleFloat {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(0, -14px, 0) scale(1.08);
-  }
 }
 
 @keyframes drawLine {
