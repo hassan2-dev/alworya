@@ -1,14 +1,72 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
   <head>
+    <!-- Basic -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Alworya - Luxury smart booking platform for wedding halls and chalets in Iraq." />
-    <link rel="icon" type="image/png" href="/logo.png" />
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
+
+    <!-- SEO -->
+    <title>
+      الوريا | Alworya - منصة حجز القاعات والشاليهات في العراق
+    </title>
+
+    <meta
+      name="description"
+      content="الوريا Alworya هي منصة عراقية ذكية لحجز القاعات والشاليهات بسهولة عبر الخريطة والحجز الفوري والدردشة المباشرة."
     />
+
+    <meta
+      name="keywords"
+      content="الوريا, Alworya, منصة حجز, قاعات, شاليهات, العراق, بغداد, البصرة, حجز قاعات, حجز شاليهات, wedding halls Iraq, chalet booking Iraq"
+    />
+
+    <meta name="author" content="Alworya" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="canonical" href="https://www.alworya.com/" />
+
+    <!-- Open Graph (Facebook / LinkedIn / WhatsApp) -->
+    <meta
+      property="og:title"
+      content="الوريا | Alworya — منصة حجز القاعات والشاليهات في العراق"
+    />
+    <meta
+      property="og:description"
+      content="منصة عراقية ذكية لحجز القاعات والشاليهات: الخريطة، الحجز الفوري، والمحادثة مع أصحاب الأماكن."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="الوريا | Alworya" />
+    <meta property="og:url" content="https://www.alworya.com/" />
+    <meta
+      property="og:image"
+      content="https://www.alworya.com/Alworya%20horizontal%20logo.svg"
+    />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:alt" content="الوريا Alworya — منصة حجز" />
+    <meta property="og:locale" content="ar_IQ" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="الوريا | Alworya — منصة حجز في العراق"
+    />
+    <meta
+      name="twitter:description"
+      content="حجز قاعات وشاليهات في العراق (بغداد، البصرة، وغيرها) عبر تطبيق ذكي."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.alworya.com/Alworya%20horizontal%20logo.svg"
+    />
+
+    <!-- Icons — brand SVG (transparent) -->
+    <link rel="icon" href="/Alworya%20icon.svg" type="image/svg+xml" />
+    <link rel="mask-icon" href="/Alworya%20icon.svg" color="#80202b" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       rel="preconnect"
       href="https://fonts.gstatic.com"
@@ -18,8 +76,47 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <title>Alworya</title>
+
+    <!-- PWA / browser chrome -->
+    <meta name="theme-color" content="#80202b" />
+    <meta name="apple-mobile-web-app-title" content="الوريا" />
+    <meta name="application-name" content="Alworya" />
+
+    <!-- Structured data: Arabic ↔ English brand linking for search engines -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://www.alworya.com/#website",
+            "url": "https://www.alworya.com/",
+            "name": "Alworya",
+            "alternateName": ["الوريا", "الوريه", "Al Worya"],
+            "description": "منصة عراقية لحجز قاعات الأعراس والشاليهات عبر الخريطة والحجز الفوري والمحادثة. Iraqi smart booking for wedding halls and chalets.",
+            "inLanguage": ["ar-IQ", "en-US"]
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.alworya.com/#organization",
+            "name": "Alworya",
+            "alternateName": ["الوريا", "الوريه", "Al Worya"],
+            "url": "https://www.alworya.com/",
+            "email": "support@alworya.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.alworya.com/Alworya%20horizontal%20logo.svg"
+            },
+            "areaServed": {
+              "@type": "Country",
+              "name": "Iraq"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

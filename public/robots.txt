@@ -1,0 +1,6 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Alworya marketing site + legal pages
+Sitemap: https://www.alworya.com/sitemap.xml

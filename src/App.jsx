@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 function App() {
-  const [language, setLanguage] = useState('en')
+  const [language, setLanguage] = useState('ar')
   const [activeStep, setActiveStep] = useState(0)
   const [activeTestimonial, setActiveTestimonial] = useState(0)
   const isArabic = language === 'ar'
@@ -10,22 +10,48 @@ function App() {
   const smoothDragX = useSpring(dragX, { stiffness: 120, damping: 20 })
   const rotateY = useTransform(smoothDragX, [-160, 160], [-6, 6])
   const ease = [0.22, 1, 0.36, 1]
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  const [activeNavId, setActiveNavId] = useState('hero')
 
   useEffect(() => {
     document.documentElement.lang = isArabic ? 'ar' : 'en'
     document.documentElement.dir = isArabic ? 'rtl' : 'ltr'
   }, [isArabic])
 
+  useEffect(() => {
+    document.title = isArabic
+      ? 'الوريا | Alworya - منصة حجز القاعات والشاليهات في العراق'
+      : 'Alworya | الوريا — Luxury hall & chalet booking in Iraq'
+  }, [isArabic])
+
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    setActiveNavId(id)
+    setMobileNavOpen(false)
+  }
+
   const content = {
     en: {
-      nav: ['About', 'Features', 'How It Works', 'Owners'],
+      navLinks: [
+        { id: 'hero', label: 'Home' },
+        { id: 'about', label: 'About Alworya' },
+        { id: 'features', label: 'Features' },
+        { id: 'how', label: 'How It Works' },
+        { id: 'app', label: 'App Preview' },
+        { id: 'owners', label: 'For Venue Owners' },
+        { id: 'testimonials', label: 'Reviews' },
+        { id: 'contact', label: 'Contact' },
+      ],
+      loginLabel: 'Login',
+      startNowLabel: 'Start Now',
       heroTitle: 'Discover & Book Luxury Venues in Iraq',
       heroSubtitle: 'Smart platform for wedding halls & chalets booking',
       download: 'Download App',
       explore: 'Explore Venues',
       aboutTitle: 'About Alworya',
       aboutText:
-        'Alworya is an Iraqi smart booking platform connecting people with wedding halls and chalets through maps, instant reservation, OTP verification, and owner chat in one elegant experience.',
+        'Alworya (الوريا) is an Iraqi booking platform for wedding halls and chalets — a smart way to reserve venues across Iraq, including Baghdad and Basrah. Find spaces on the map, book instantly with OTP, and chat with owners from one elegant app.',
       featuresTitle: 'Smart Features Crafted for Premium Events',
       features: [
         'Smart search system',
@@ -74,14 +100,25 @@ function App() {
       footerTagline: 'Luxury wedding experience meets smart technology platform.',
     },
     ar: {
-      nav: ['عن الوريا', 'المزايا', 'كيف يعمل', 'للمالك'],
+      navLinks: [
+        { id: 'hero', label: 'الرئيسية' },
+        { id: 'about', label: 'عن الوريا' },
+        { id: 'features', label: 'المزايا' },
+        { id: 'how', label: 'كيف يعمل' },
+        { id: 'app', label: 'استعراض التطبيق' },
+        { id: 'owners', label: 'لأصحاب القاعات' },
+        { id: 'testimonials', label: 'آراء العملاء' },
+        { id: 'contact', label: 'تواصل معنا' },
+      ],
+      loginLabel: 'تسجيل الدخول',
+      startNowLabel: 'ابدأ الآن',
       heroTitle: 'اكتشف واحجز أفخم القاعات والمنتجعات في العراق',
       heroSubtitle: 'منصة ذكية لحجز قاعات الأعراس والشاليهات بسهولة وثقة',
       download: 'حمّل التطبيق',
       explore: 'استكشف الأماكن',
       aboutTitle: 'عن الوريا',
       aboutText:
-        'الوريا منصة عراقية ذكية تربط المستخدمين بقاعات الأعراس والشاليهات عبر الخرائط والحجز الفوري وتحقق OTP والمحادثة المباشرة مع أصحاب الأماكن ضمن تجربة فاخرة وبسيطة.',
+        'الوريا (Alworya) منصة حجز عراقية لقاعات الأعراس والشاليهات في عموم العراق — من بغداد إلى البصرة وأبعد. استكشف الأماكن على الخريطة، واحجز فوراً مع التحقق عبر OTP، وتواصل مباشرة مع أصحاب القاعات أو الشاليهات.',
       featuresTitle: 'مزايا ذكية مصممة للمناسبات الفاخرة',
       features: [
         'نظام بحث ذكي',
@@ -134,43 +171,149 @@ function App() {
   const t = content[language]
 
   return (
-    <div className="relative mx-auto max-w-[1240px] overflow-hidden">
-      <header className="hero-gradient relative flex min-h-[92vh] flex-col justify-between p-5 text-[#f9f2ea] sm:p-8">
+    <>
+      {/* Top marketing bar — cream + burgundy (matches reference SaaS shell) */}
+      <header className="sticky top-0 z-100 w-full border-b border-[#80202b]/12 bg-[#f5f1e9]/97 shadow-[0_4px_20px_rgba(64,45,45,0.05)] backdrop-blur-md supports-backdrop-filter:bg-[#f5f1e9]/93">
+        <nav className="flex w-full max-w-none flex-wrap items-center justify-between gap-3 px-5 py-3 sm:px-8 xl:px-14 2xl:px-20 lg:gap-6">
+          <button
+            type="button"
+            className="-ms-2 flex shrink-0 items-center gap-3 rounded-lg p-2 text-start transition-opacity hover:opacity-90 lg:ms-0"
+            onClick={() => scrollToSection('hero')}
+            aria-label="Alworya home"
+          >
+            <img
+              src="/Alworya horizontal logo.svg"
+              alt="Alworya"
+              className="hidden h-8 w-auto max-w-44 object-contain object-start sm:block md:h-9 md:max-w-56"
+            />
+            <span className="flex items-center gap-2 sm:hidden">
+              <img
+                src="/Alworya icon.svg"
+                alt=""
+                className="h-9 w-9 object-contain"
+                aria-hidden
+              />
+              <img
+                src="/Alworya type.svg"
+                alt="Alworya"
+                className="h-6 w-auto max-w-36 object-contain object-start"
+              />
+            </span>
+          </button>
+
+          {/* Desktop navigation */}
+          <div className="hidden min-w-0 flex-1 items-center justify-center gap-1 xl:gap-2 min-[880px]:flex">
+            {t.navLinks.map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => scrollToSection(id)}
+                className={`rounded-md px-2.5 py-2 text-[0.8125rem] font-medium transition-colors xl:text-[0.875rem] ${
+                  activeNavId === id
+                    ? 'border-b-[3px] border-[#80202b] text-[#80202b]'
+                    : 'border-b-[3px] border-transparent text-[#4a4543] hover:bg-[#80202b]/06 hover:text-[#80202b]'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <motion.button
+              type="button"
+              className="hidden cursor-pointer px-3 py-2 text-[0.8125rem] font-medium text-[#4a4543] hover:text-[#80202b] sm:block"
+              onClick={() => setLanguage(isArabic ? 'en' : 'ar')}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {isArabic ? 'EN' : 'عربي'}
+            </motion.button>
+            <button
+              type="button"
+              className="hidden cursor-pointer whitespace-nowrap px-2 py-2 text-[0.8125rem] font-semibold text-[#4a4543] underline-offset-4 hover:text-[#80202b] hover:underline sm:block"
+              onClick={() => scrollToSection('contact')}
+            >
+              {t.loginLabel}
+            </button>
+            <motion.button
+              type="button"
+              className="hidden cursor-pointer rounded-md bg-[#80202b] px-4 py-2.5 text-[0.8125rem] font-semibold text-white shadow-md shadow-[#80202b]/28 transition sm:inline-flex whitespace-nowrap"
+              onClick={() => scrollToSection('hero')}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              {t.startNowLabel}
+            </motion.button>
+
+            {/* Mobile menu toggle */}
+            <button
+              type="button"
+              className="-me-2 flex h-11 w-11 items-center justify-center rounded-lg border border-[#80202b]/20 text-[#80202b] min-[880px]:hidden"
+              aria-expanded={mobileNavOpen}
+              aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+              onClick={() => setMobileNavOpen((o) => !o)}
+            >
+              <span className="text-xl leading-none">{mobileNavOpen ? '×' : '≡'}</span>
+            </button>
+          </div>
+
+          {/* Mobile dropdown */}
+          {mobileNavOpen && (
+            <div className="flex w-full basis-full flex-col gap-1 border-t border-[#80202b]/10 pt-3 pb-1 min-[880px]:hidden">
+              <div className="flex justify-center gap-2 pb-2">
+                <button
+                  type="button"
+                  className="rounded-md px-4 py-2 text-[0.8125rem] font-medium text-[#2d2338]"
+                  onClick={() => setLanguage(isArabic ? 'en' : 'ar')}
+                >
+                  {isArabic ? 'English' : 'العربية'}
+                </button>
+              </div>
+              {t.navLinks.map(({ id, label }) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={`rounded-lg px-3 py-3 text-start text-[0.9rem] font-medium ${
+                    activeNavId === id ? 'bg-[#80202b]/08 text-[#80202b]' : 'text-[#4a4543]'
+                  }`}
+                  onClick={() => scrollToSection(id)}
+                >
+                  {label}
+                </button>
+              ))}
+              <div className="mt-2 flex flex-col gap-2 border-t border-[#80202b]/10 pt-3">
+                <button
+                  type="button"
+                  className="rounded-lg py-3 text-[0.9rem] font-semibold text-[#4a4543]"
+                  onClick={() => scrollToSection('contact')}
+                >
+                  {t.loginLabel}
+                </button>
+                <button
+                  type="button"
+                  className="rounded-lg bg-[#80202b] py-3 text-[0.9rem] font-semibold text-white"
+                  onClick={() => scrollToSection('hero')}
+                >
+                  {t.startNowLabel}
+                </button>
+              </div>
+            </div>
+          )}
+        </nav>
+      </header>
+
+      <div className="relative w-full min-w-0 max-w-none overflow-x-hidden">
+      <header
+        id="hero"
+        className="hero-gradient relative scroll-mt-19 flex min-h-[88vh] w-full flex-col justify-end px-5 pb-10 pt-4 text-[#f9f2ea] sm:px-8 sm:pb-12 xl:px-14 2xl:px-20"
+      >
         <div className="noise-layer" />
         <div className="hero-particle hero-particle-1" />
         <div className="hero-particle hero-particle-2" />
         <div className="hero-particle hero-particle-3" />
-        <nav className="relative z-10 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <motion.span
-              className="grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-[#f9f2ea]/45 bg-[#f9f2ea]/15"
-              initial={{ opacity: 0, scale: 0.7, rotate: -20 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1.1, ease }}
-            >
-              <img src="/logo.png" alt="Alworya logo" className="h-8 w-8 object-contain" />
-            </motion.span>
-            <span className={`text-lg uppercase ${isArabic ? 'tracking-normal' : 'tracking-[0.12em]'}`}>
-              Alworya
-            </span>
-          </div>
-          <div className="hidden gap-6 text-sm text-[#f9f2ea]/80 md:flex">
-            {t.nav.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
-          </div>
-          <motion.button
-            type="button"
-            className="cursor-pointer rounded-full border border-[#f9f2ea]/55 bg-[#f9f2ea]/15 px-4 py-2"
-            onClick={() => setLanguage(isArabic ? 'en' : 'ar')}
-            whileHover={{ scale: 1.05, boxShadow: '0 0 22px rgba(249,242,234,.35)' }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {isArabic ? 'English' : 'العربية'}
-          </motion.button>
-        </nav>
         <motion.div
-          className="relative z-10 mx-auto max-w-[820px] text-center"
+          className="relative z-10 mx-auto w-full max-w-[min(1120px,calc(100%-2rem))] text-center lg:max-w-[min(90rem,calc(100%-4rem))]"
           initial="hidden"
           animate="show"
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
@@ -180,17 +323,25 @@ function App() {
             variants={{ hidden: { opacity: 0, y: 30, filter: 'blur(7px)' }, show: { opacity: 1, y: 0, filter: 'blur(0px)' } }}
             transition={{ duration: 1, ease }}
           >
-            Luxury + Trust + Simplicity
+            {isArabic ? 'فخامة + ثقة + بساطة' : 'Luxury + Trust + Simplicity'}
           </motion.p>
           <motion.h1
-            className="mb-4 mt-4 text-[clamp(2rem,5vw,4.3rem)] leading-tight text-[#f9f2ea]"
+            className="mb-3 mt-4 text-[clamp(1.85rem,4.5vw,3.25rem)] leading-tight text-[#f9f2ea]"
             variants={{ hidden: { opacity: 0, y: 30, filter: 'blur(10px)' }, show: { opacity: 1, y: 0, filter: 'blur(0px)' } }}
             transition={{ duration: 1.2, ease }}
           >
-            {t.heroTitle}
+            الوريا | Alworya
           </motion.h1>
           <motion.p
-            className="mx-auto max-w-[640px] text-[#f9f2ea]/90"
+            className="mx-auto mb-2 max-w-[min(56rem,100%)] text-[clamp(1.05rem,2.4vw,1.55rem)] font-semibold leading-snug text-[#f9f2ea]/95"
+            variants={{ hidden: { opacity: 0, y: 26 }, show: { opacity: 1, y: 0 } }}
+            transition={{ duration: 1, ease }}
+            role="doc-subtitle"
+          >
+            {t.heroTitle}
+          </motion.p>
+          <motion.p
+            className="mx-auto max-w-[min(56rem,100%)] text-[#f9f2ea]/90 lg:text-lg"
             variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }}
             transition={{ duration: 1, ease }}
           >
@@ -203,17 +354,19 @@ function App() {
           >
             <motion.button
               type="button"
-              className="cursor-pointer rounded-full bg-[#912b3b] px-6 py-3 text-sm text-white shadow-[0_10px_24px_rgba(145,43,59,0.34)]"
-              whileHover={{ y: -5, boxShadow: '0 0 30px rgba(145,43,59,.58)' }}
+              className="cursor-pointer rounded-full bg-[#f9f2ea] px-6 py-3 text-sm font-semibold text-[#80202b] shadow-[0_8px_28px_rgba(0,0,0,.2)]"
+              whileHover={{ y: -5, boxShadow: '0 14px 40px rgba(0,0,0,.28)' }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection('contact')}
             >
               {t.download}
             </motion.button>
             <motion.button
               type="button"
-              className="cursor-pointer rounded-full border border-[#f9f2ea]/45 bg-[#f9f2ea]/12 px-6 py-3 text-sm text-[#f9f2ea] backdrop-blur-sm"
-              whileHover={{ y: -5, boxShadow: '0 0 24px rgba(249,242,234,.35)' }}
+              className="cursor-pointer rounded-full border-2 border-[#f9f2ea]/85 bg-transparent px-6 py-3 text-sm font-semibold text-[#f9f2ea] backdrop-blur-sm"
+              whileHover={{ y: -5, boxShadow: '0 0 28px rgba(249,242,234,.35)' }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection(isArabic ? 'owners' : 'app')}
             >
               {t.explore}
             </motion.button>
@@ -222,7 +375,7 @@ function App() {
       </header>
 
       <main>
-        <RevealSection className="mx-auto max-w-[1000px] px-4 py-24 sm:px-8">
+        <RevealSection id="about" className="w-full px-5 py-24 sm:px-8 xl:px-14 2xl:px-20">
           <h2 className="mb-4 text-[clamp(1.5rem,3vw,2.4rem)]">{t.aboutTitle}</h2>
           <div className="grid gap-8 md:grid-cols-2 md:items-center">
             <motion.p
@@ -251,7 +404,7 @@ function App() {
           </div>
         </RevealSection>
 
-        <RevealSection className="px-4 py-24 sm:px-8">
+        <RevealSection id="features" className="w-full px-5 py-24 sm:px-8 xl:px-14 2xl:px-20">
           <h2 className="mb-4 text-center text-[clamp(1.5rem,3vw,2.4rem)]">{t.featuresTitle}</h2>
           <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {t.features.map((feature, index) => (
@@ -277,10 +430,10 @@ function App() {
           </div>
         </RevealSection>
 
-        <RevealSection className="px-4 py-24 sm:px-8">
+        <RevealSection id="how" className="w-full px-5 py-24 sm:px-8 xl:px-14 2xl:px-20">
           <h2 className="mb-4 text-center text-[clamp(1.5rem,3vw,2.4rem)]">{t.howTitle}</h2>
           <div className="mx-auto mt-10 max-w-[760px]">
-            <div className="timeline-line relative ml-4">
+            <div className="timeline-line relative ms-4">
               {t.steps.map((step, index) => (
                 <motion.div
                   key={step}
@@ -307,7 +460,7 @@ function App() {
           </div>
         </RevealSection>
 
-        <RevealSection className="px-4 py-24 sm:px-8">
+        <RevealSection id="app" className="w-full px-5 py-24 sm:px-8 xl:px-14 2xl:px-20">
           <h2 className="mb-4 text-center text-[clamp(1.5rem,3vw,2.4rem)]">{t.appPreview}</h2>
           <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {t.appCards.map((card, index) => (
@@ -332,7 +485,7 @@ function App() {
           </div>
         </RevealSection>
 
-        <RevealSection className="mx-auto max-w-[900px] px-4 py-24 text-center sm:px-8">
+        <RevealSection id="owners" className="w-full px-5 py-24 text-center sm:px-8 xl:px-14 2xl:px-20">
           <h2 className="mb-4 text-[clamp(1.5rem,3vw,2.4rem)]">{t.ownerTitle}</h2>
           <div className="mb-8 mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
             {t.ownerStats.map((item, index) => (
@@ -365,10 +518,10 @@ function App() {
           </ul>
         </RevealSection>
 
-        <RevealSection className="px-4 py-24 sm:px-8">
+        <RevealSection id="testimonials" className="w-full px-5 py-24 sm:px-8 xl:px-14 2xl:px-20">
           <h2 className="mb-4 text-center text-[clamp(1.5rem,3vw,2.4rem)]">{t.testimonialsTitle}</h2>
           <motion.div
-            className="mx-auto mt-8 max-w-[740px] overflow-hidden"
+            className="mx-auto mt-8 w-full max-w-[min(52rem,calc(100%-1rem))] overflow-hidden lg:max-w-[min(64rem,calc(100%-2rem))]"
             drag="x"
             dragConstraints={{ left: -120, right: 120 }}
             onDragEnd={(_, info) => {
@@ -390,7 +543,10 @@ function App() {
           </motion.div>
         </RevealSection>
 
-        <RevealSection className="mx-4 mb-16 rounded-3xl border border-[#4d286f]/20 bg-linear-to-br from-[#4d286f]/12 to-[#912b3b]/14 px-4 py-20 text-center sm:mx-8 sm:px-8">
+        <RevealSection
+          id="contact"
+          className="mx-5 mb-16 rounded-3xl border border-[#4d286f]/20 bg-linear-to-br from-[#4d286f]/12 to-[#912b3b]/14 px-6 py-20 text-center sm:mx-8 sm:px-10 xl:mx-14 xl:px-14 2xl:mx-20 2xl:px-16"
+        >
           <h2 className="mb-4 text-[clamp(1.5rem,3vw,2.4rem)]">{t.ctaTitle}</h2>
           <p>{t.ctaSubtitle}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -414,32 +570,34 @@ function App() {
         </RevealSection>
       </main>
 
-      <footer className="border-t border-[#4d286f]/15 p-8 text-center">
+      <footer className="w-full border-t border-[#80202b]/10 bg-[#f5f1e9]/90 px-5 py-10 text-center sm:px-10 xl:px-14 2xl:px-20">
         <div className="mb-3 flex flex-wrap justify-center gap-4">
-          <a className="text-[#4d286f] no-underline" href="https://www.alworya.com">www.alworya.com</a>
-          <a className="text-[#4d286f] no-underline" href="/privacy-policy">
+          <a className="text-[#80202b] no-underline hover:underline" href="https://www.alworya.com">www.alworya.com</a>
+          <a className="text-[#80202b] no-underline hover:underline" href="/privacy-policy">
             Privacy Policy
           </a>
-          <a className="text-[#4d286f] no-underline" href="/delete-account">
+          <a className="text-[#80202b] no-underline hover:underline" href="/delete-account">
             Delete Account
           </a>
-          <a className="text-[#4d286f] no-underline" href="mailto:support@alworya.com">support@alworya.com</a>
-          <a className="text-[#4d286f] no-underline" href="https://instagram.com">Instagram</a>
-          <a className="text-[#4d286f] no-underline" href="https://facebook.com">Facebook</a>
+          <a className="text-[#80202b] no-underline hover:underline" href="mailto:support@alworya.com">support@alworya.com</a>
+          <a className="text-[#80202b] no-underline hover:underline" href="https://instagram.com">Instagram</a>
+          <a className="text-[#80202b] no-underline hover:underline" href="https://facebook.com">Facebook</a>
         </div>
         <p>{t.footerTagline}</p>
       </footer>
     </div>
+    </>
   )
 }
 
-function RevealSection({ children, className }) {
+function RevealSection({ children, className, id }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.24 })
   return (
     <motion.section
       ref={ref}
-      className={className}
+      id={id}
+      className={`scroll-mt-19 ${className ?? ''}`}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
