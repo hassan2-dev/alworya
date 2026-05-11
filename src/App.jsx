@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import CanonicalLink from './components/CanonicalLink'
 import Layout from './components/Layout'
 import { content, routeMap } from './content/siteContent'
 import AboutPage from './pages/AboutPage'
@@ -23,6 +24,8 @@ function App() {
   }, [isArabic])
 
   return (
+    <>
+      <CanonicalLink />
     <Layout
       t={t}
       isArabic={isArabic}
@@ -43,6 +46,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     </Layout>
+    </>
   )
 }
 
