@@ -30,7 +30,8 @@ export default function Layout({ t, isArabic, mobileNavOpen, setMobileNavOpen, r
       <header className="sticky top-0 z-50 w-full border-b border-[#80202b]/12 bg-[#f5f1e9]/97 shadow-[0_4px_20px_rgba(64,45,45,0.05)] backdrop-blur-md">
         <nav className="flex w-full flex-wrap items-center justify-between gap-3 px-5 py-3 sm:px-8 xl:px-14 2xl:px-20 lg:gap-6">
           <NavLink to="/" onClick={() => setMobileNavOpen(false)} className="-ms-2 flex shrink-0 items-center gap-2 rounded-lg p-2">
-            <img src="/Alworya horizontal logo.svg" alt="Alworya" className="h-8 w-auto sm:h-9" />
+            <img src="/mpbile icon.png" alt="Alworya" className="h-8 w-auto min-[980px]:hidden" />
+            <img src="/Alworya horizontal logo.svg" alt="Alworya" className="hidden h-8 w-auto sm:h-9 min-[980px]:block" />
           </NavLink>
 
           <div className="hidden min-w-0 flex-1 items-center justify-center gap-1 xl:gap-2 min-[980px]:flex">

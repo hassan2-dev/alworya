@@ -24,7 +24,7 @@ export default function HomePage({ t, isArabic }) {
             <p className="mt-1 text-sm text-[#2d2338]/70">{isArabic ? 'دعم فني' : 'Support'}</p>
           </div>
           <div>
-            <p className="text-5xl font-bold text-[#912b3b]">0%</p>
+            <p className="text-5xl font-bold text-[#912b3b]">74%</p>
             <p className="mt-1 text-sm text-[#2d2338]/70">{isArabic ? 'زيادة في الكفاءة' : 'Efficiency increase'}</p>
           </div>
           <div>
